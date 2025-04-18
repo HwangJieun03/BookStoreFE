@@ -61,7 +61,7 @@ function Header() {
 
 const HeaderStyle = styled.header`
   width: 100%;
-  margin: 0 auto; // 가운데 정렬
+  margin: 0 auto; 
   max-width: ${({ theme }) => theme.layout.width.large};
 
   display: flex;
