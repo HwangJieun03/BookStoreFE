@@ -16,7 +16,7 @@ function Footer() {
 
 const FooterStyle = styled.footer`
   width: 100%;
-  margin: 0 auto; // 가운데 정렬
+  margin: 0 auto; 
   max-width: ${({ theme }) => theme.layout.width.large};
   border-top: 1px solid ${({ theme }) => theme.color.background};
   padding: 20px 0;
