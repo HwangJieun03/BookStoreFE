@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import logo from "../../assets/images/logo.png";
-import { FaSignInAlt,  FaRegUser } from "react-icons/fa";
+import { FaSignInAlt, FaRegUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const LoginIcon = FaSignInAlt as React.ElementType;
 const JoinIcon = FaRegUser as React.ElementType;
@@ -28,19 +29,21 @@ function Header() {
   return (
     <HeaderStyle>
       <h1 className="logo">
-        <img src={logo} alt="book store" />
+        <Link to="/">
+          <img src={logo} alt="book store" />
+        </Link>
       </h1>
       <nav className="category">
         <ul>
           {CATEGORY.map((item) => (
             <li key={item.id}>
-              <a
-                href={
+              <Link
+                to={
                   item.id === null ? "/books" : `/books?category_id=${item.id}`
                 }
               >
                 {item.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -48,10 +51,14 @@ function Header() {
       <nav className="auth">
         <ul>
           <li>
-            <a href="/login"><LoginIcon /> 로그인</a>
+            <Link to="/login">
+              <LoginIcon /> 로그인
+            </Link>
           </li>
           <li>
-            <a href="/join"><JoinIcon /> 회원가입</a>
+            <Link to="/join">
+              <JoinIcon /> 회원가입
+            </Link>
           </li>
         </ul>
       </nav>
@@ -61,7 +68,7 @@ function Header() {
 
 const HeaderStyle = styled.header`
   width: 100%;
-  margin: 0 auto; 
+  margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
 
   display: flex;
@@ -86,8 +93,8 @@ const HeaderStyle = styled.header`
           font-weight: 600;
           text-decoration: none;
           color: ${({ theme }) => theme.color.text};
-          &:hover{
-            color : ${({ theme }) => theme.color.primary};
+          &:hover {
+            color: ${({ theme }) => theme.color.primary};
           }
         }
       }
@@ -95,14 +102,14 @@ const HeaderStyle = styled.header`
   }
 
   .auth {
-    ul{
+    ul {
       display: flex;
-      gap : 16px;
+      gap: 16px;
       li {
         a {
-          font-size : 1rem;
-          font-weight : 600;
-          text-decoration : none;
+          font-size: 1rem;
+          font-weight: 600;
+          text-decoration: none;
           display: flex;
           align-items: center;
           line-height: 1;

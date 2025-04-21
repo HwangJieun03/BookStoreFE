@@ -8,12 +8,12 @@ import Error from "./components/common/Error";
 const router = createBrowserRouter([
   {
     path : "/",
-    element : <Home />,
+    element : <Layout><Home /></Layout>,
     errorElement : <Error />
   },
   {
     path : "/books",
-    element : <div>도서 목록</div>
+    element : <Layout><div>도서 목록</div></Layout>
   }
 ])
 
@@ -23,9 +23,7 @@ function App() {
     <>
       <BookStoreThemeProvider>
         <ThemeSwitcher />
-        <Layout>
           <RouterProvider router = {router}/>
-        </Layout>
       </BookStoreThemeProvider>
     </>
   );
