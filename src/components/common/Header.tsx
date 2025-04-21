@@ -40,7 +40,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/join">
+            <Link to="/signup">
               <JoinIcon /> 회원가입
             </Link>
           </li>
