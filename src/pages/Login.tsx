@@ -3,9 +3,10 @@ import InputText from "../components/common/InputText";
 import Button from "../components/common/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login, signup } from "../api/auth.api";
+import { login } from "../api/auth.api";
 import { useAlert } from "../hooks/useAlert";
 import { SignupStyle } from "./Signup";
+import { useAuthStore } from "../store/authStore";
 
 export interface SignupProps {
   email: string;
@@ -16,6 +17,8 @@ function Login() {
   const navigate = useNavigate();
   const showAlert = useAlert();
 
+  const {isloggedIn, storeLogin, storeLogout} = useAuthStore();
+  
   const {
     register,
     handleSubmit,
@@ -24,11 +27,15 @@ function Login() {
 
   const onSubmit = (data: SignupProps) => {
     login(data).then((res)=>{
-        console.log(res.token);
+        // 상태 변화
+        storeLogin(res.token);
+
         showAlert("로그인이 완료되었습니다.");
         navigate("/");
     })
   };
+
+  console.log(isloggedIn);
 
   return (
     <>
