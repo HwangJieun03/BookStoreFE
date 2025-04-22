@@ -20,7 +20,7 @@ function Books() {
         </div>
         {!isEmpty && <BooksList books={books} />}
         {isEmpty && <BooksEmpty />}
-        {!isEmpty && <Pagination />}
+        {!isEmpty && <Pagination pagination={pagination} />}
       </BooksStyle>
     </>
   );
