@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import ResetPassword from "./pages/ResetPassword";
 import Login from "./pages/Login";
 import Books from "./pages/Books";
+import BookDeatil from "./pages/BookDetail";
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,14 @@ const router = createBrowserRouter([
   {
     path : "/login",
     element : <Layout><Login/></Layout>
+  },
+  {
+    path : "/book/:bookId",
+    element : <Layout><BookDeatil/></Layout>
   }
 ])
 
 function App() {
-
   return (
     <>
       <BookStoreThemeProvider>
