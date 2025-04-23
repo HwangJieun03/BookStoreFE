@@ -2,9 +2,10 @@ import { styled } from "styled-components";
 import Title from "../components/common/Title";
 import CartItem from "../components/cart/CartItem";
 import { useCart } from "../hooks/useCart";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Empty from "../components/common/Empty";
 import { FaShoppingCart } from "react-icons/fa";
+import CartSummary from "../components/cart/CartSummary";
 
 const ShoppingCartIcon = FaShoppingCart as React.ElementType;
 
@@ -23,9 +24,26 @@ function Cart() {
   };
 
   const handleDeleteItem = (id: number) => {
-    // 삭제 행위
     deleteCartItem(id);
   };
+
+  const totalQuantity = useMemo(()=>{
+    return carts.reduce((acc, cart)=> {
+        if (checkedItems.includes(cart.id)) {
+            return acc + cart.quantity;
+        }
+        return acc;
+    },0)
+  }, [carts, checkedItems]);
+
+  const totalPrice = useMemo(()=>{
+    return carts.reduce((acc, cart)=>{
+        if (checkedItems.includes(cart.id)){
+            return acc + (cart.price * cart.quantity);
+        }
+        return acc;
+    }, 0);
+  }, [carts, checkedItems]);
 
   return (
     <>
@@ -44,7 +62,9 @@ function Cart() {
                 />
               ))}
             </div>
-            <div className="summary"></div>
+            <div className="summary">
+                <CartSummary totalQuantity={totalQuantity} totalPrice={totalPrice}/>
+            </div>
           </>
         )}
         {isEmpty && (
@@ -59,6 +79,22 @@ function Cart() {
   );
 }
 
-const CartStyle = styled.div``;
+const CartStyle = styled.div`
+    display : flex;
+    gap : 24px;
+    justify-content: space-between;
+    padding : 24px 0 0 0;
+
+    .content {
+        flex : 1;
+        display : flex;
+        flex-direction: column;
+        gap : 12px;
+    }
+
+    .summary {
+        display:flex;
+    }
+`;
 
 export default Cart;
