@@ -6,10 +6,17 @@ import { useMemo, useState } from "react";
 import Empty from "../components/common/Empty";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSummary from "../components/cart/CartSummary";
+import Button from "../components/common/Button";
+import { useAlert } from "../hooks/useAlert";
+import { OrderSheet } from "../models/order.model";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCartIcon = FaShoppingCart as React.ElementType;
 
 function Cart() {
+  const { showAlert, showConfirm } = useAlert();
+  const navigate = useNavigate();
+
   const { carts, deleteCartItem, isEmpty } = useCart();
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
 
@@ -27,23 +34,42 @@ function Cart() {
     deleteCartItem(id);
   };
 
-  const totalQuantity = useMemo(()=>{
-    return carts.reduce((acc, cart)=> {
-        if (checkedItems.includes(cart.id)) {
-            return acc + cart.quantity;
-        }
-        return acc;
-    },0)
-  }, [carts, checkedItems]);
-
-  const totalPrice = useMemo(()=>{
-    return carts.reduce((acc, cart)=>{
-        if (checkedItems.includes(cart.id)){
-            return acc + (cart.price * cart.quantity);
-        }
-        return acc;
+  const totalQuantity = useMemo(() => {
+    return carts.reduce((acc, cart) => {
+      if (checkedItems.includes(cart.id)) {
+        return acc + cart.quantity;
+      }
+      return acc;
     }, 0);
   }, [carts, checkedItems]);
+
+  const totalPrice = useMemo(() => {
+    return carts.reduce((acc, cart) => {
+      if (checkedItems.includes(cart.id)) {
+        return acc + cart.price * cart.quantity;
+      }
+      return acc;
+    }, 0);
+  }, [carts, checkedItems]);
+
+  const handleOrder = () => {
+    if (checkedItems.length === 0) {
+        showAlert("주문하실 상품을 선택해 주세요.");
+        return;
+    }
+    // 주문서 작성으로 데이터 전달
+    const orderData: Omit<OrderSheet, "delivery"> = {
+        items : checkedItems,
+        totalPrice,
+        totalQuantity,
+        firstBookTitle : carts[0].title,
+    };
+
+    showConfirm("주문하시겠습니까?", () => {
+        navigate("/order", {state : orderData});
+    })
+    
+  };
 
   return (
     <>
@@ -63,7 +89,13 @@ function Cart() {
               ))}
             </div>
             <div className="summary">
-                <CartSummary totalQuantity={totalQuantity} totalPrice={totalPrice}/>
+              <CartSummary
+                totalQuantity={totalQuantity}
+                totalPrice={totalPrice}
+              />
+              <Button size="large" scheme="primary" onClick={handleOrder}>
+                주문하기
+              </Button>
             </div>
           </>
         )}
@@ -80,21 +112,23 @@ function Cart() {
 }
 
 const CartStyle = styled.div`
-    display : flex;
-    gap : 24px;
-    justify-content: space-between;
-    padding : 24px 0 0 0;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  padding: 24px 0 0 0;
 
-    .content {
-        flex : 1;
-        display : flex;
-        flex-direction: column;
-        gap : 12px;
-    }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 
-    .summary {
-        display:flex;
-    }
+  .summary {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 `;
 
 export default Cart;
