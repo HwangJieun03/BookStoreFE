@@ -6,7 +6,7 @@ import { FaHeart } from "react-icons/fa";
 import { ViewMode } from "./BooksViewSwitcher";
 import { Link } from "react-router-dom";
 
-const HeartIcon = FaHeart as React.ElementType;
+export const HeartIcon = FaHeart as React.ElementType;
 
 interface Props {
   book: Book;
