@@ -54,21 +54,20 @@ function Cart() {
 
   const handleOrder = () => {
     if (checkedItems.length === 0) {
-        showAlert("주문하실 상품을 선택해 주세요.");
-        return;
+      showAlert("주문하실 상품을 선택해 주세요.");
+      return;
     }
     // 주문서 작성으로 데이터 전달
     const orderData: Omit<OrderSheet, "delivery"> = {
-        items : checkedItems,
-        totalPrice,
-        totalQuantity,
-        firstBookTitle : carts[0].title,
+      items: checkedItems,
+      totalPrice,
+      totalQuantity,
+      firstBookTitle: carts[0].title,
     };
 
     showConfirm("주문하시겠습니까?", () => {
-        navigate("/order", {state : orderData});
-    })
-    
+      navigate("/order", { state: orderData });
+    });
   };
 
   return (
@@ -111,7 +110,7 @@ function Cart() {
   );
 }
 
-const CartStyle = styled.div`
+export const CartStyle = styled.div`
   display: flex;
   gap: 24px;
   justify-content: space-between;
@@ -128,6 +127,46 @@ const CartStyle = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
+  }
+
+  .order-info {
+    h1 {
+      padding: 0 0 24px 0;
+    }
+
+    border: 1px solid ${({ theme }) => theme.color.border};
+    border-radius: ${({ theme }) => theme.borderRadius.default};
+    padding: 12px;
+  }
+
+  .delivery {
+    fieldset {
+      border: 0;
+      margin: 0;
+      padding: 0 0 12px 0;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 8px;
+
+      label {
+        width: 80px;
+      }
+
+      .input {
+        flex: 1;
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    .error-text {
+      color : red;
+      margin : 0;
+      padding : 0 0 12px 0;
+      text-align: right;
+    }
   }
 `;
 
