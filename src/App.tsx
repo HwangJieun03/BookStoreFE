@@ -13,52 +13,61 @@ import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import OrderList from "./pages/OrderList";
 
-const router = createBrowserRouter([
+const routeList = [
   {
-    path : "/",
-    element : <Layout><Home /></Layout>,
-    errorElement : <Error />
+    path: "/",
+    element: <Home />,
   },
   {
-    path : "/books",
-    element : <Layout><Books/></Layout>
+    path: "/books",
+    element: <Books />,
   },
   {
-    path : "/signup",
-    element : <Layout><Signup/></Layout>
+    path: "/signup",
+    element: <Signup />,
   },
   {
-    path : "/reset",
-    element : <Layout><ResetPassword/></Layout>
+    path: "/reset",
+    element: <ResetPassword />,
   },
   {
-    path : "/login",
-    element : <Layout><Login/></Layout>
+    path: "/login",
+    element: <Login />,
   },
   {
-    path : "/book/:bookId",
-    element : <Layout><BookDeatil/></Layout>
+    path: "/book/:bookId",
+    element: <BookDeatil />,
   },
   {
-    path : "/cart",
-    element : <Layout><Cart/></Layout>
+    path: "/cart",
+    element: <Cart />,
   },
   {
-    path : "/order",
-    element : <Layout><Order/></Layout>
+    path: "/order",
+    element: <Order />,
   },
   {
-    path : "/orderlist",
-    element : <Layout><OrderList/></Layout>
-  }
-])
+    path: "/orderlist",
+    element: <OrderList />,
+  },
+];
+
+const router = createBrowserRouter(
+  routeList.map((item) => {
+    return {
+      ...item,
+      element: <Layout>{item.element}</Layout>,
+      errorElement: <Error />,
+    };
+  })
+);
 
 function App() {
   return (
     <>
       <BookStoreThemeProvider>
         <ThemeSwitcher />
-          <RouterProvider router = {router}/>
+        <RouterProvider router={router} />
       </BookStoreThemeProvider>
     </>
   );
