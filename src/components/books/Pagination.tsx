@@ -29,9 +29,8 @@ function Pagination({ pagination }: Props) {
           {Array(pages)
             .fill(0)
             .map((_, index) => (
-              <li>
+              <li key={index}>
                 <Button
-                  key={index}
                   size="small"
                   scheme={index+1 === currentPage ? "primary" : "normal"}
                   onClick={() => handleClickPage(index + 1)}
