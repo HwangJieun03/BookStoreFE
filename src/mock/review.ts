@@ -1,11 +1,21 @@
 import { BookReviewItem } from "@/models/book.model";
 import { http, HttpResponse } from "msw";
+import { fakerKO as faker } from "@faker-js/faker";
+
+const mockReviewData: BookReviewItem[] = Array.from({ length: 8 }).map(
+  (_, index) => ({
+    id: index,
+    userName: `${faker.person.lastName()}${faker.person.firstName()}`,
+    content: faker.lorem.paragraph(),
+    createdAt: faker.date.past().toISOString(),
+    score: Math.floor(Math.random() * 5) + 1,
+  })
+);
 
 export const reviewsById = http.get(
   `http://localhost:9999/reviews/:bookId`,
   () => {
-    const data: BookReviewItem[] = [];
-    return HttpResponse.json(data, {
+    return HttpResponse.json(mockReviewData, {
       status: 200,
     });
   }
