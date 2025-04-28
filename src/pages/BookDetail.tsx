@@ -49,7 +49,7 @@ const bookInfoList = [
 
 function BookDeatil() {
   const { bookId } = useParams();
-  const { book, likeToggle, reviews } = useBook(bookId);
+  const { book, likeToggle, reviews, addReview } = useBook(bookId);
 
   if (!book) return null;
 
@@ -91,7 +91,7 @@ function BookDeatil() {
         <p className="index">{book.contents}</p>
 
         <Title size="medium">리뷰</Title>
-        <BookReview reviews={reviews}/>
+        <BookReview reviews={reviews} onAdd={addReview}/>
       </div>
     </BookDeatilStyle>
   );

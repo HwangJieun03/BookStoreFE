@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { BookDetail, BookReviewItem } from "../models/book.model";
+import {
+  BookDetail,
+  BookReviewItem,
+  BookReviewItemWrite,
+} from "../models/book.model";
 import { fetchBook, likeBook, unlikeBook } from "../api/books.api";
 import { useAuthStore } from "../store/authStore";
 import { useAlert } from "./useAlert";
 import { addCart } from "../api/carts.api";
-import { fetchBookReview } from "@/api/review.api";
+import { addBookReview, fetchBookReview } from "@/api/review.api";
 
 export const useBook = (bookId: string | undefined) => {
   const [book, setBook] = useState<BookDetail | null>(null);
@@ -12,7 +16,7 @@ export const useBook = (bookId: string | undefined) => {
   const [reviews, setReviews] = useState<BookReviewItem[]>([]);
 
   const { isloggedIn } = useAuthStore();
-  const {showAlert} = useAlert();
+  const { showAlert } = useAlert();
 
   const likeToggle = () => {
     // 권한 확인
@@ -46,11 +50,11 @@ export const useBook = (bookId: string | undefined) => {
   };
 
   const addToCart = (quantity: number) => {
-    // 권한 확인 
+    // 권한 확인
     if (!isloggedIn) {
-        showAlert("로그인이 필요합니다.");
-        return;
-      }
+      showAlert("로그인이 필요합니다.");
+      return;
+    }
 
     if (!book) return;
 
@@ -72,8 +76,20 @@ export const useBook = (bookId: string | undefined) => {
       setBook(book);
     });
 
-    fetchBookReview(bookId).then((reviews) => {setReviews(reviews)})
+    fetchBookReview(bookId).then((reviews) => {
+      setReviews(reviews);
+    });
   }, [bookId]);
 
-  return { book, likeToggle, addToCart, cartAdded, reviews };
+  const addReview = (data: BookReviewItemWrite) => {
+    if (!book) return;
+
+    addBookReview(book.id.toString(), data).then((res) => {
+      // fetchBookReview(book.id.toString()).then((reviews) => {
+      //   setReviews(reviews);
+      // });  
+      showAlert(res?.message);
+    });
+  };
+  return { book, likeToggle, addToCart, cartAdded, reviews, addReview };
 };
