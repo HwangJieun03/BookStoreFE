@@ -8,7 +8,7 @@ const mockReviewData: BookReviewItem[] = Array.from({ length: 8 }).map(
     userName: `${faker.person.lastName()}${faker.person.firstName()}`,
     content: faker.lorem.paragraph(),
     createdAt: faker.date.past().toISOString(),
-    score: Math.floor(Math.random() * 5) + 1,
+    score: faker.number.int({ min: 1, max: 5 }),
   })
 );
 
