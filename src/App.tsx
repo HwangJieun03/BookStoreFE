@@ -70,7 +70,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BookStoreThemeProvider>
-        <ThemeSwitcher />
+        {/* <ThemeSwitcher /> */}
         <RouterProvider router={router} />
         <ToastContainer/>
       </BookStoreThemeProvider>
