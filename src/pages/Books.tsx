@@ -7,7 +7,6 @@ import BooksViewSwitcher from "../components/books/BooksViewSwitcher";
 import Loading from "@/components/common/Loading";
 import { useBooksInfinite } from "@/hooks/useBooksInfinite";
 import Button from "@/components/common/Button";
-import { useEffect, useRef } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 function Books() {

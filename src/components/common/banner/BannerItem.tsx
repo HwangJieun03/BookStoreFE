@@ -20,6 +20,8 @@ function BannerItem({ banner }: Props) {
 }
 
 const BannerItemStyle = styled.div`
+  flex: 0 0 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +51,7 @@ const BannerItemStyle = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
     h2 {
       font-size: 2rem;
       font-weight: 700;
