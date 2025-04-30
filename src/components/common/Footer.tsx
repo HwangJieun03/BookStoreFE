@@ -16,7 +16,7 @@ function Footer() {
 
 const FooterStyle = styled.footer`
   width: 100%;
-  margin: 0 auto; 
+  margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
   border-top: 1px solid ${({ theme }) => theme.color.background};
   padding: 20px 0;
@@ -31,9 +31,14 @@ const FooterStyle = styled.footer`
 
   .copyright {
     p {
-        font-size: 0.75rem;
-        color: ${({ theme }) => theme.color.text};
+      font-size: 0.75rem;
+      color: ${({ theme }) => theme.color.text};
     }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 

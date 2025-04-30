@@ -4,19 +4,22 @@ import BookReviewItem from "../book/BookReviewItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface Props {
   reviews: IBookReviewItem[];
 }
 
 function MainReview({ reviews }: Props) {
+  const { isMobile } = useMediaQuery();
+
   const sliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    gap : 16,
+    slidesToShow: isMobile ? 1 : 3,
+    slidesToScroll: isMobile ? 1 : 3,
+    gap: 16,
   };
 
   return (
@@ -31,20 +34,31 @@ function MainReview({ reviews }: Props) {
 }
 
 const MainReviewStyle = styled.div`
-    padding : 0 0 24px 0;
+  padding: 0 0 24px 0;
 
-    .slick-track {
-        padding : 12px 0;
+  .slick-track {
+    padding: 12px 0;
+  }
+
+  .slick-slide > div {
+    margin: 0 12px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: #000;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .slick-prev {
+      left : 0;
     }
 
-    .slick-slide > div {
-        margin : 0 12px;
+    .slick-next {
+      right : 0;
     }
-
-    .slick-prev:before,
-    .slick-next:before{
-        color : #000;
-    }
+    
+  }
 `;
 
 export default MainReview;
