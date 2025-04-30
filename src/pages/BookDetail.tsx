@@ -148,6 +148,57 @@ const BookDetailStyle = styled.div`
       }
     }
   }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    padding: 12px 0 0 0;
+
+    .header {
+      flex-direction: column;
+      gap: 16px;
+
+      .img {
+        width: 100%;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .info {
+        width: 100%;
+        gap: 8px;
+
+        dl {
+          font-size: 0.9rem;
+          dt {
+            width: 70px;
+          }
+          dd {
+            word-break: break-word;
+          }
+        }
+
+        .summary {
+          font-size: 0.9rem;
+          padding-right: 8px;
+        }
+
+        .like,
+        .add-cart {
+          margin-top: 8px;
+        }
+      }
+    }
+
+    .content {
+      padding: 0 12px;
+
+      .index {
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+      }
+    }
+  }
 `;
 
 export default BookDetail;

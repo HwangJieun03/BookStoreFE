@@ -60,14 +60,15 @@ const BooksStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
+  gap: 10px;
 
   .filter {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding : 15px 0;
   }
+  
 `;
 
 export default Books;

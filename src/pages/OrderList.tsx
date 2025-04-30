@@ -105,6 +105,24 @@ const OrderListStyle = styled.div`
         }
     }
   }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    overflow-x: auto;
+
+    table {
+      font-size: 12px; 
+      min-width: 900px; 
+    }
+
+    th, td {
+      padding: 8px;
+    }
+
+    .detail div {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
 `;
 
 export default OrderList;

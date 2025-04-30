@@ -168,6 +168,41 @@ export const CartStyle = styled.div`
       text-align: right;
     }
   }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+
+    .content {
+      gap: 8px;
+    }
+
+    .summary {
+      gap: 16px;
+    }
+
+    .order-info {
+      padding: 8px;
+    }
+
+    .delivery fieldset {
+      flex-direction: column;
+      gap: 12px;
+
+      label {
+        width: 100%;
+      }
+    }
+
+    .summary {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+
+  
+  }
 `;
 
 export default Cart;
